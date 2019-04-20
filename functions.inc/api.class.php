@@ -130,8 +130,8 @@ class Api{
 			}
 
 			foreach ($details['apimap'] as $verb => $maps) {
-				foreach ($maps as $url => $map) {
-					$this->add_map($verb, $url, $mod, $map);
+				foreach ($maps as $path => $map) {
+					$this->add_map($verb, $map['url'], $mod, $map);
 				}
 			}
 		}
