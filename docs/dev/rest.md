@@ -44,7 +44,24 @@ On instantiation, the api class also registers all available maps, and parses th
 #### 4.1 Router
 Prior to calling `Router`, the api class gathers all maps. Maps are received from two places:
 
-1. module.xml's as cached in FreePBX's database. These are received via the `modulelist` class and stored in `$this->mods`
+1. module.xml's as cached in FreePBX's database. These are received via the `modulelist` class and stored in `$this->mods`. An example of adding a map to module.xml is below:
+ ```
+ <apimap>
+    <get>
+        <path>
+            <url>/myawesomeendpoint</url>
+            <path>class.mycontroller.php</path>
+            <controller>restapi_MyControllerClassName</controller>
+            <module>myfreepbxmodule</module>
+            <method>get</method>
+            <target>
+                <controller_path>class.mycontroller.php</controller_path>
+            </target>
+        </path>
+    </get>
+</apimap>
+```
+
 2. maps.php of modules folded in to the restapi module. These maps are NOT cached, and are parsed at every instantiation. The file tree is as follows:
 
 ```
