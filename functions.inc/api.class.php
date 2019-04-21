@@ -131,9 +131,20 @@ class Api{
 
 			foreach ($details['apimap'] as $verb => $maps) {
 				foreach ($maps as $path => $map) {
-					$this->add_map($verb, $map['url'], $mod, $map);
+					if($this->isAssoc($map)) {
+						$this->add_map($verb, $map['url'], $mod, $map);
+						continue;
+					}
+					foreach($map as $endpoints => $maps) {
+						$this->add_map($verb, $maps['url'], $mod, $maps);
+					}
 				}
 			}
+			
+			
+			
+			
+			
 		}
 
 		unset($details);
@@ -851,6 +862,14 @@ class Api{
 			$this->log->event('Response', $this->res);
 		}
 		return true;
+	}
+	
+	/**
+	 * Checks if array is associative or not
+	 */
+	function isAssoc(array $arr) {
+		if(array() === $arr) return false;
+		return array_keys($arr) !== range(0, count($arr) - 1);
 	}
 }
 ?>
